@@ -2,6 +2,7 @@ package com.sparta.springlv1.controller;
 
 import com.sparta.springlv1.dto.MemoRequestDto;
 import com.sparta.springlv1.dto.MemoResponseDto;
+import com.sparta.springlv1.dto.PasswordRequestDto;
 import com.sparta.springlv1.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +36,11 @@ public class MemoController {
     @PutMapping("/{id}")
     public MemoResponseDto updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
         return memoService.updateMemo(id, requestDto);
+    }
+
+    // 게시글 삭제하기
+    @DeleteMapping("/{id}")
+    public String deleteMemo(@PathVariable Long id, @RequestBody PasswordRequestDto requestDto) {
+        return memoService.deleteMemo(id, requestDto);
     }
 }

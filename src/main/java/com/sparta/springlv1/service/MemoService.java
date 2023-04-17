@@ -2,6 +2,7 @@ package com.sparta.springlv1.service;
 
 import com.sparta.springlv1.dto.MemoRequestDto;
 import com.sparta.springlv1.dto.MemoResponseDto;
+import com.sparta.springlv1.dto.PasswordRequestDto;
 import com.sparta.springlv1.entity.Memo;
 import com.sparta.springlv1.repository.MemoRepository;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +47,19 @@ public class MemoService {
             return new MemoResponseDto(memo);
         } else {
             return null;
+        }
+    }
+
+    public String deleteMemo(Long id, PasswordRequestDto requestDto) {
+        Memo memo = memoRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("입력하신 id의 게시글이 없습니다.")
+        );
+
+        if(requestDto.getPassword().equals(memo.getPassword())) {
+            memoRepository.delete(memo);
+            return "삭제 성공했습니다.";
+        } else {
+            return "비밀번호가 일치하지 않습니다.";
         }
     }
 }
