@@ -33,7 +33,7 @@ public class MemoController {
 
     // 게시글 수정하기
     @PutMapping("/{id}")
-    public Object updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
+    public MemoResponseDto updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
         return memoService.updateMemo(id, requestDto);
     }
 }
