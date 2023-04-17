@@ -26,4 +26,12 @@ public class MemoService {
         List<Memo> memoList = memoRepository.findAll();
         return memoList.stream().map(MemoResponseDto::new).sorted((memo1, memo2) -> memo2.getModifiedAt().compareTo(memo1.getModifiedAt())).collect(Collectors.toList());
     }
+
+    public MemoResponseDto getMemo(Long id) {
+        Memo memo = memoRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("입력하신 id의 게시글이 없습니다.")
+        );
+
+        return new MemoResponseDto(memo);
+    }
 }
