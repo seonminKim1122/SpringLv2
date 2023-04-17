@@ -25,21 +25,17 @@ public class MemoService {
 
     public List<MemoResponseDto> getAllMemo() {
         List<Memo> memoList = memoRepository.findAll();
-        return memoList.stream().map(MemoResponseDto::new).sorted((memo1, memo2) -> memo2.getModifiedAt().compareTo(memo1.getModifiedAt())).collect(Collectors.toList());
+        return memoList.stream().sorted((memo1, memo2) -> memo2.getModifiedAt().compareTo(memo1.getModifiedAt())).map(MemoResponseDto::new).collect(Collectors.toList());
     }
 
     public MemoResponseDto getMemo(Long id) {
-        Memo memo = memoRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("입력하신 id의 게시글이 없습니다.")
-        );
+        Memo memo = findMemoById(id);
 
         return new MemoResponseDto(memo);
     }
 
     public MemoResponseDto updateMemo(Long id, MemoRequestDto requestDto) {
-        Memo memo = memoRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("입력하신 id의 게시글이 없습니다.")
-        );
+        Memo memo = findMemoById(id);
 
         if(requestDto.getPassword().equals(memo.getPassword())) {
             memo.update(requestDto);
@@ -51,9 +47,7 @@ public class MemoService {
     }
 
     public String deleteMemo(Long id, PasswordRequestDto requestDto) {
-        Memo memo = memoRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("입력하신 id의 게시글이 없습니다.")
-        );
+        Memo memo = findMemoById(id);
 
         if(requestDto.getPassword().equals(memo.getPassword())) {
             memoRepository.delete(memo);
@@ -61,5 +55,11 @@ public class MemoService {
         } else {
             return "비밀번호가 일치하지 않습니다.";
         }
+    }
+
+    public Memo findMemoById(Long id) {
+        return memoRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("입력하신 id의 게시글이 없습니다.")
+        );
     }
 }
