@@ -30,4 +30,10 @@ public class MemoController {
     public MemoResponseDto getMemo(@PathVariable Long id) {
         return memoService.getMemo(id);
     }
+
+    // 게시글 수정하기
+    @PutMapping("/{id}")
+    public Object updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
+        return memoService.updateMemo(id, requestDto);
+    }
 }

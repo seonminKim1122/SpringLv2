@@ -34,4 +34,18 @@ public class MemoService {
 
         return new MemoResponseDto(memo);
     }
+
+    public MemoResponseDto updateMemo(Long id, MemoRequestDto requestDto) {
+        Memo memo = memoRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("입력하신 id의 게시글이 없습니다.")
+        );
+
+        if(requestDto.getPassword().equals(memo.getPassword())) {
+            memo.update(requestDto);
+            memoRepository.save(memo);
+            return new MemoResponseDto(memo);
+        } else {
+            return null;
+        }
+    }
 }
