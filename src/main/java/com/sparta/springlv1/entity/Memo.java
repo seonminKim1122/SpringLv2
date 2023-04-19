@@ -3,10 +3,12 @@ package com.sparta.springlv1.entity;
 import com.sparta.springlv1.dto.MemoRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 public class Memo extends TimeStamped {

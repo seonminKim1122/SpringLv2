@@ -22,6 +22,7 @@ public class ExceptionAdvisor {
             sb.append("\n");
             sb.append(" 입력된 값 : ");
             sb.append(fieldError.getRejectedValue());
+            sb.append("\n");
         }
         return sb.toString();
     }
