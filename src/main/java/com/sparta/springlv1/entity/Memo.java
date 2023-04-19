@@ -18,24 +18,19 @@ public class Memo extends TimeStamped {
     private String title;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private String password;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "username")
+    private User user;
 
     public Memo(MemoRequestDto requestDto) {
         this.title = requestDto.getTitle();
-        this.name = requestDto.getName();
         this.content = requestDto.getContent();
-        this.password = requestDto.getPassword();
     }
 
     public void update(MemoRequestDto requestDto) {
         this.title = requestDto.getTitle();
-        this.name = requestDto.getName();
         this.content = requestDto.getContent();
     }
 }

@@ -2,12 +2,10 @@ package com.sparta.springlv1.service;
 
 import com.sparta.springlv1.dto.MemoRequestDto;
 import com.sparta.springlv1.dto.MemoResponseDto;
-import com.sparta.springlv1.dto.PasswordRequestDto;
 import com.sparta.springlv1.entity.Memo;
 import com.sparta.springlv1.repository.MemoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.stream.Collectors;

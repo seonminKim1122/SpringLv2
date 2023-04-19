@@ -14,7 +14,7 @@ public class MemoResponseDto {
 
     public MemoResponseDto(Memo memo) {
         this.title = memo.getTitle();
-        this.name = memo.getName();
+        this.name = memo.getUser().getUsername();
         this.content = memo.getContent();
         this.modifiedAt = memo.getModifiedAt().toLocalDate();
     }
