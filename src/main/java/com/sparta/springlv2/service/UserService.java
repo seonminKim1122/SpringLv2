@@ -32,9 +32,7 @@ public class UserService {
 
     public StatusResponseDto login(UserRequestDto userRequestDto, HttpServletResponse response) {
         try {
-            User user = userRepository.findById(userRequestDto.getUsername()).orElseThrow(
-                    () -> new NullPointerException("등록되지 않은 사용자입니다.")
-            );
+            User user = findUserByName(userRequestDto.getUsername());
             if (user.getPassword().equals(userRequestDto.getPassword())) {
                 response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));
                 return new StatusResponseDto("로그인 성공!!", HttpStatus.OK);
@@ -43,5 +41,11 @@ public class UserService {
         } catch(NullPointerException e) {
             return new StatusResponseDto(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public User findUserByName(String username) {
+        return userRepository.findById(username).orElseThrow(
+                () -> new NullPointerException("등록되지 않은 사용자입니다.")
+        );
     }
 }

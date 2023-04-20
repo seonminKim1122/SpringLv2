@@ -25,21 +25,20 @@ public class MemoService {
     private final JwtUtil jwtUtil;
     private final MemoRepository memoRepository;
     private final UserRepository userRepository;
-    public MemoResponseDto createMemo(MemoRequestDto requestDto, HttpServletRequest request) {
+    public GeneralResponseDto createMemo(MemoRequestDto requestDto, HttpServletRequest request) {
         String token = jwtUtil.resolveToken(request);
-        Claims claims;
+        Claims claims = jwtUtil.getUserInfoFromToken(token);
 
-        if (token != null) {
-            if (jwtUtil.validationToken(token)) {
-                claims = jwtUtil.getUserInfoFromToken(token);
-                User user = findUserByName(claims.getSubject());
-                Memo memo = new Memo(requestDto);
-                memo.setUser(user);
-                memoRepository.save(memo);
-                return new MemoResponseDto(memo);
-            }
+        try {
+            User user = findUserByName(claims.getSubject());
+            Memo memo = new Memo(requestDto);
+            memo.setUser(user);
+            memoRepository.save(memo);
+            return new MemoResponseDto(memo);
+        } catch (NullPointerException e) {
+            return new StatusResponseDto(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return null;
+
     }
 
     public List<MemoResponseDto> getAllMemo() {
@@ -47,44 +46,45 @@ public class MemoService {
         return memoList.stream().sorted((memo1, memo2) -> memo2.getModifiedAt().compareTo(memo1.getModifiedAt())).map(MemoResponseDto::new).collect(Collectors.toList());
     }
 
-    public MemoResponseDto getMemo(Long id) {
-        Memo memo = findMemoById(id);
-        return new MemoResponseDto(memo);
+    public GeneralResponseDto getMemo(Long id) {
+        try {
+            Memo memo = findMemoById(id);
+            return new MemoResponseDto(memo);
+        } catch (NullPointerException e){
+            return new StatusResponseDto(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     public GeneralResponseDto updateMemo(Long id, MemoRequestDto requestDto, HttpServletRequest request) {
         String token = jwtUtil.resolveToken(request);
-        Claims claims;
+        Claims claims = jwtUtil.getUserInfoFromToken(token);
 
-        if (token != null) {
-            if (jwtUtil.validationToken(token)) {
-                claims = jwtUtil.getUserInfoFromToken(token);
-                Memo memo = findMemoById(id);
-                if (memo.getUser().getUsername().equals(claims.getSubject())) {
-                    memo.update(requestDto);
-                    memoRepository.save(memo); // (영속성 컨텍스트 개념으로는 자동으로 반영되는데 왜 나는 안되는지?)
-                    return new MemoResponseDto(memo);
-                }
-            }
+        Memo memo = findMemoById(id);
+        if (memo.getUser().getUsername().equals(claims.getSubject())) {
+            memo.update(requestDto);
+            memoRepository.save(memo); // (영속성 컨텍스트 개념으로는 자동으로 반영되는데 왜 나는 안되는지?)
+            return new MemoResponseDto(memo);
         }
+
         return new StatusResponseDto("직접 작성한 게시글만 수정할 수 있습니다.", HttpStatus.BAD_REQUEST);
     }
 
     public StatusResponseDto deleteMemo(Long id, HttpServletRequest request) {
         String token = jwtUtil.resolveToken(request);
-        Claims claims;
+        Claims claims = jwtUtil.getUserInfoFromToken(token);
 
-        if (token != null) {
-            if (jwtUtil.validationToken(token)) {
-                claims = jwtUtil.getUserInfoFromToken(token);
-                Memo memo = findMemoById(id);
-                if (memo.getUser().getUsername().equals(claims.getSubject())) {
-                    memoRepository.delete(memo);
-                    return new StatusResponseDto("삭제 성공!!", HttpStatus.OK);
-                }
+        try {
+            Memo memo = findMemoById(id);
+            if (memo.getUser().getUsername().equals(claims.getSubject())) {
+                memoRepository.delete(memo);
+                return new StatusResponseDto("삭제 성공!!", HttpStatus.OK);
             }
+
+            return new StatusResponseDto("직접 작성한 게시글만 삭제할 수 있습니다.", HttpStatus.BAD_REQUEST);
+        } catch (NullPointerException e) {
+            return new StatusResponseDto(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new StatusResponseDto("직접 작성한 게시글만 삭제할 수 있습니다.", HttpStatus.BAD_REQUEST);
+
     }
 
     public Memo findMemoById(Long id) {
@@ -98,5 +98,4 @@ public class MemoService {
                 () -> new NullPointerException("등록되지 않은 사용자입니다.")
         );
     }
-
 }
