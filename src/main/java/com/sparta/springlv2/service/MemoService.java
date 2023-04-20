@@ -13,6 +13,7 @@ import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -25,6 +26,7 @@ public class MemoService {
     private final JwtUtil jwtUtil;
     private final MemoRepository memoRepository;
     private final UserRepository userRepository;
+    @Transactional
     public GeneralResponseDto createMemo(MemoRequestDto requestDto, HttpServletRequest request) {
         String token = jwtUtil.resolveToken(request);
         Claims claims = jwtUtil.getUserInfoFromToken(token);
@@ -55,6 +57,7 @@ public class MemoService {
         }
     }
 
+    @Transactional
     public GeneralResponseDto updateMemo(Long id, MemoRequestDto requestDto, HttpServletRequest request) {
         String token = jwtUtil.resolveToken(request);
         Claims claims = jwtUtil.getUserInfoFromToken(token);
@@ -69,6 +72,7 @@ public class MemoService {
         return new StatusResponseDto("직접 작성한 게시글만 수정할 수 있습니다.", HttpStatus.BAD_REQUEST);
     }
 
+    @Transactional
     public StatusResponseDto deleteMemo(Long id, HttpServletRequest request) {
         String token = jwtUtil.resolveToken(request);
         Claims claims = jwtUtil.getUserInfoFromToken(token);
