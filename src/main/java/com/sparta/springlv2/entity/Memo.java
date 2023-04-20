@@ -1,6 +1,6 @@
-package com.sparta.springlv1.entity;
+package com.sparta.springlv2.entity;
 
-import com.sparta.springlv1.dto.MemoRequestDto;
+import com.sparta.springlv2.dto.MemoRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

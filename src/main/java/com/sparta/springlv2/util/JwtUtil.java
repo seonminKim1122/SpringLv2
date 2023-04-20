@@ -1,4 +1,4 @@
-package com.sparta.springlv1.util;
+package com.sparta.springlv2.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

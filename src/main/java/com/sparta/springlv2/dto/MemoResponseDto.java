@@ -1,6 +1,6 @@
-package com.sparta.springlv1.dto;
+package com.sparta.springlv2.dto;
 
-import com.sparta.springlv1.entity.Memo;
+import com.sparta.springlv2.entity.Memo;
 import lombok.Getter;
 
 import java.time.LocalDate;

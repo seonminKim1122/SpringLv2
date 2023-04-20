@@ -1,10 +1,10 @@
-package com.sparta.springlv1.service;
+package com.sparta.springlv2.service;
 
-import com.sparta.springlv1.dto.StatusResponseDto;
-import com.sparta.springlv1.dto.UserRequestDto;
-import com.sparta.springlv1.entity.User;
-import com.sparta.springlv1.repository.UserRepository;
-import com.sparta.springlv1.util.JwtUtil;
+import com.sparta.springlv2.dto.StatusResponseDto;
+import com.sparta.springlv2.dto.UserRequestDto;
+import com.sparta.springlv2.entity.User;
+import com.sparta.springlv2.repository.UserRepository;
+import com.sparta.springlv2.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.sparta.springlv1.advisor;
+package com.sparta.springlv2.advisor;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

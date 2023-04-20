@@ -1,13 +1,12 @@
-package com.sparta.springlv1.entity;
+package com.sparta.springlv2.entity;
 
-import com.sparta.springlv1.dto.UserRequestDto;
+import com.sparta.springlv2.dto.UserRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.Pattern;
 
 @Entity(name = "users")
 @Getter

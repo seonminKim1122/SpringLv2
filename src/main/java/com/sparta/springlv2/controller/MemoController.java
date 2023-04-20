@@ -1,10 +1,10 @@
-package com.sparta.springlv1.controller;
+package com.sparta.springlv2.controller;
 
-import com.sparta.springlv1.dto.GeneralResponseDto;
-import com.sparta.springlv1.dto.MemoRequestDto;
-import com.sparta.springlv1.dto.MemoResponseDto;
-import com.sparta.springlv1.dto.StatusResponseDto;
-import com.sparta.springlv1.service.MemoService;
+import com.sparta.springlv2.dto.GeneralResponseDto;
+import com.sparta.springlv2.dto.MemoRequestDto;
+import com.sparta.springlv2.dto.MemoResponseDto;
+import com.sparta.springlv2.dto.StatusResponseDto;
+import com.sparta.springlv2.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

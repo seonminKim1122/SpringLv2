@@ -1,14 +1,14 @@
-package com.sparta.springlv1.service;
+package com.sparta.springlv2.service;
 
-import com.sparta.springlv1.dto.GeneralResponseDto;
-import com.sparta.springlv1.dto.MemoRequestDto;
-import com.sparta.springlv1.dto.MemoResponseDto;
-import com.sparta.springlv1.dto.StatusResponseDto;
-import com.sparta.springlv1.entity.Memo;
-import com.sparta.springlv1.entity.User;
-import com.sparta.springlv1.repository.MemoRepository;
-import com.sparta.springlv1.repository.UserRepository;
-import com.sparta.springlv1.util.JwtUtil;
+import com.sparta.springlv2.dto.GeneralResponseDto;
+import com.sparta.springlv2.dto.MemoRequestDto;
+import com.sparta.springlv2.dto.MemoResponseDto;
+import com.sparta.springlv2.dto.StatusResponseDto;
+import com.sparta.springlv2.entity.Memo;
+import com.sparta.springlv2.entity.User;
+import com.sparta.springlv2.repository.MemoRepository;
+import com.sparta.springlv2.repository.UserRepository;
+import com.sparta.springlv2.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
